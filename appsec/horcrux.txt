@@ -1,0 +1,36 @@
+PackMan
+	flag = flag{gyg0skBf8tYHfU0X}
+	After inspecting the source of webpega I found "<applet code="PacMan.class" width="384" 	height="384" />". I downloaded the file and using GHIDRA I discoverd  = fBlH2S;^\\uCOIPb|A5Yigb
+	I also found a function decrString(). Using thing function I decrypt the msg1 and got the 		flag.
+
+
+RE: 
+	I found the /data directory. Then I download the parse binary and with the help o ghidra
+	I found the Function that does the checking (FUN_080487f0()). I followed the registers 	that were use to load arguments for FUN_080487f0. It using $ecx and $edx. Then i found what 	values are loaded at ecx and edx at DAT_0804a101 and DAT_0804a107 respectevly.  The function 	does a xor with both values => d2ecede9a6 xor b3888080c8 = 61646d696e => admin (username). For 	the second call of this function it gets the value from DAT_0804a0e0 and DAT_0804a0a0. 	Like befor it xor the 2 values
+	(d7b9b0e2fff89b87e9fc9887c1e1b7b0a3a0d28f84e3e6bfb5e6b0e6e6b6d985  xor 		         b3888080c8cbfdb7d8c8fdb7a483848894c1e3b7e0828488818080808083ecb7
+password = d10b73f014e0eb387a18dab74f0ff552
+	flag{Ecko5f9ACYFqx8XE}
+	
+	
+BLOGOO: 
+	After trying a lot of input I found that the valnurability is at the time that we create new user and more specific at the label Username. again after a lot of tries I found that the table that has the record has 6 columns. When I manage to print the table it only printed 5 colmuns, the column of password was missing. So I wrote this command tsutomu' UNION SELECT password,NULL,NULL,NULL,NULL,NULL FROM users-- - and I manage to shwitch password possition with username possition and now we can see that we have the password of
+	 tsutomu -> kevinmitnickisanarrogantbastard
+	flag{3Wrz9js9TNtGLYAF}	
+	
+	
+Store:
+	Flag = flag{5fRww8ICFDFiqbQ2}
+	couldn't bypass login so I tried to login with some defult username and passwords. it 	works with "admin" as password and username. Then on URL I noticed that we have a uid. I 	change it and noticed that content of webpage is changing. I keep trying until I hit uid 13 	and found the flag.
+	
+	
+Gloria Foster: 
+	She played the Oracle in The Matrix (1999) so it's going to be padding oracle attack.
+	After google I found different code and tools to do padding oracle and more specific
+	https://github.com/GDSSecurity/PadBuster . 
+	Then I have to use sudo apt-get install libcrypt-ssleay-perl to make it work. 
+	I gave to command the chiper-text 	NynrieZGvMEoBCDxkxwuMwlNLbCJW2k5ALkwOP3yXvtLohn0tQqPlT2WC/UnLeJ/ and the URL http://wolkje-87.cs.vu.nl:63566/EJaqJFVI/cgi-bin/index.php  and it returned me flag.
+	
+flag{p8Frn3VDSvdfzV0A}
+
+	
+	

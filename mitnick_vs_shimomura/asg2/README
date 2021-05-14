@@ -1,0 +1,18 @@
+h0rcrux
+Paris Sfikouris
+p.sfikouris@student.vu.nl
+pss248
+Student no.: 2671387
+
+go.sh doesn't work as frequenlty as it should. To get better result, after compile the program run only the binary ./attack instead of go.sh.
+
+First, I sent a TCP package with netcat to the server at port 513 and server respond So my first priority was to disable the server. To accomplish this I sent 10 packages with the payload "disable" towards to server port 513. Then I sent again package a with netcat and server was silence.
+
+Next step we have to understand the ISN pattern. Sending some package to xterminal you can spot that the difference between first 2 packages minus the difference of second and third packages it's 11111111. Moreover, after sending few packages you will notice that ISN start over again after the SEQ number overs a 32bit number.
+So, what did I do? I send 3 packages to get this standard difference 11111111 and then manually (next_acl + (next_ack-prev_ack) +1111111) find out how much packages should sent to xterminal so the SEQ that response me it's the first SEQ after the 32bit integer wrap around.
+
+Now I have to impersonate the server side sending a spoof tcp at port 514 of xterminal as the server with seq and ack equals 0. Then I do a blind response with seq = 1 and ack = next_ack + 1 (next_ack found it from the previus step). Now we have establish the 3 way handshake. 
+
+For the last step of the attack I wrote the payload "0\0tsutomu\0tsutomu\0echo + + >> .rhosts\0" and sent it to xterminal as the server and with that way we have free access from everywhare.
+
+To clean up I remove from .rshot the privilages and also i clean bash history with command history -c
